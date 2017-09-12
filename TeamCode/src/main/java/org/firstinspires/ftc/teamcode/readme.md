@@ -3,7 +3,14 @@
 Welcome!
 
 this is a test to see if source tree works.
+<<<<<<< HEAD
 Arcade_drive
+=======
+
+
+what if i do this instead
+
+>>>>>>> master
 ## Creating your own OpModes
 
 The easiest way to create your own OpMode is to copy a Sample OpMode and make it your own.
