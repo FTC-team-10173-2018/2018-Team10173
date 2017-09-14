@@ -36,6 +36,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -50,6 +51,7 @@ public class testMotors extends LinearOpMode {
     DcMotor backLeftMotor = null;
     DcMotor backRightMotor = null;
     ModernRoboticsI2cRangeSensor rangeSensor;
+    private ElapsedTime runtime = new ElapsedTime();
 
     @Override public void runOpMode() {
 
@@ -72,9 +74,14 @@ public class testMotors extends LinearOpMode {
 
 
         // wait for the start button to be pressed
+
         waitForStart();
 
+        runtime.reset();
+
         while (opModeIsActive()) {
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+
           if (gamepad1.a)
               telemetry.addData("front_left_motor_on);
                       telemetry.update();
