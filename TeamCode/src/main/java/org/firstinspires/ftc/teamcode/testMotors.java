@@ -38,8 +38,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
 /**
  * @see <a href="http://modernroboticsinc.com/range-sensor">MR Range Sensor</a>
  */
@@ -82,28 +80,25 @@ public class testMotors extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
 
-          if (gamepad1.a)
-              telemetry.addData("front_left_motor_on);
-                      telemetry.update();
-                      frontLeftMotor.setPower(.25);
+            while (gamepad1.a = true); {
+                telemetry.addData ("front"+"left"+"motor"+"on");
+                frontLeftMotor.setPower(.25);
 
-            if (gamepad1.b)
-                telemetry.addData("front_right_motor_on);
-                        telemetry.update();
-            frontRightMotor.setPower(.25);
+            }
+            {while (gamepad1.b = true);
+                telemetry.addData("front_right_motor_on");
+                telemetry.update();
+                frontRightMotor.setPower(.25);}
 
-            if (gamepad1.x)
-                telemetry.addData("back_left_motor_on);
-                        telemetry.update();
+            {while (gamepad1.x = true);
+                telemetry.addData("back_left_motor_on");
+
             backLeftMotor.setPower(.25);
 
-            if (gamepad1.y)
-                telemetry.addData("back_right_motor_on);
-                        telemetry.update();
-            backRightMotor.setPower(.25);
+        }{while (gamepad1.y = true);
+                telemetry.addData("backrightmotoron");
+                telemetry.update();
+                backRightMotor.setPower(.25);}
 
 
-
-        }
-    }
-}
+        }}}
