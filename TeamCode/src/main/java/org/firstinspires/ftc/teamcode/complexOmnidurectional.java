@@ -105,65 +105,39 @@ public class complexOmnidurectional extends OpMode
      */
     @Override
     public void loop() {
+
+
+
+
+
+
         // Setup a variable for each drive wheel to save power level for telemetry
         double frontleftPower = 0;
         double frontrightPower = 0;
         double backleftPower = 0;
         double backrightPower = 0;
+        double angle= 0;
+        double trueAngle = 0;
+        double power =
+        double Gyro = 0;
 
-        if ((gamepad1.dpad_down||gamepad1.dpad_left||gamepad1.dpad_up||gamepad1.dpad_right)== true){
-            if (gamepad1.dpad_up){
-                frontleftPower=1;
-                frontrightPower = -1;
-                backleftPower = -1;
-                backrightPower = 1;}
-
-            if (gamepad1.dpad_down){
-                frontleftPower=-1;
-                frontrightPower = 1;
-                backleftPower = 1;
-                backrightPower = -1;}
-
-            if (gamepad1.dpad_left){
-                frontleftPower=-1;
-                frontrightPower = -1;
-                backleftPower = 1;
-                backrightPower = 1;}
-
-            if (gamepad1.dpad_left){
-                frontleftPower=1;
-                frontrightPower = 1;
-                backleftPower = -1;
-                backrightPower = -1;}
-
-            else
-                if (gamepad1.right_trigger >=.75)
-                {
-                    frontleftPower=1;
-                    frontrightPower = 1;
-                    backleftPower = 1;
-                    backrightPower = 1;}
-
-                if (gamepad1.left_trigger >=.75){
-                    frontleftPower=-1;
-                    frontrightPower = -1;
-                    backleftPower = -1;
-                    backrightPower = -1;}
-                else
-                    frontleftPower=0;
-            frontrightPower = 0;
-            backleftPower = 0;
-            backrightPower = 0;
+        if ((gamepad1.left_stick_x > 0) && (gamepad1.left_stick_y>0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
+        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y<0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
+        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y>0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
+        else if ((angle == 0) && (gamepad1.left_stick_x<0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
+        else if ((gamepad1.left_stick_y < 0) && (gamepad1.left_stick_x == 0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
+        else if ((gamepad1.left_stick_x == 0) && (-gamepad1.left_stick_y == 0))
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
 
 
 
 
 
-            // Send calculated power to wheels
-        frontleftMotor.setPower(frontleftPower);
-       frontRightMotor.setPower(frontrightPower);
-        backRightMotor.setPower(backrightPower);
-        backLeftMotor.setPower(backleftPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
