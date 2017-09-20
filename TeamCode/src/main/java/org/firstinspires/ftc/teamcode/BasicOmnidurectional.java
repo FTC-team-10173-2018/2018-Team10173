@@ -56,10 +56,10 @@ public class BasicOmnidurectional extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontleftDrive = null;
-    private DcMotor frontRightDrive = null;
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
+    private DcMotor frontleftMotor = null;
+    private DcMotor frontRightMotor = null;
+    private DcMotor backLeftMotor = null;
+    private DcMotor backRightMotor = null;
     private double power;
 
     /*
@@ -72,17 +72,17 @@ public class BasicOmnidurectional extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontleftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontleftMotor  = hardwareMap.get(DcMotor.class, "front_left_drive");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "front_right_drive");
+        backLeftMotor  = hardwareMap.get(DcMotor.class, "back_left_drive");
+        backRightMotor = hardwareMap.get(DcMotor.class, "back_right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontleftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontleftDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        frontleftMotor.setDirection(DcMotor.Direction.FORWARD);
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        frontleftMotor.setDirection(DcMotor.Direction.FORWARD);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -162,10 +162,10 @@ public class BasicOmnidurectional extends OpMode
 
 
             // Send calculated power to wheels
-        frontleftDrive.setPower(frontleftPower);
-       frontRightDrive.setPower(frontrightPower);
-        backRightDrive.setPower(backrightPower);
-        backLeftDrive.setPower(backleftPower);
+        frontleftMotor.setPower(frontleftPower);
+        frontRightMotor.setPower(frontrightPower);
+        backRightMotor.setPower(backrightPower);
+        backLeftMotor.setPower(backleftPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());

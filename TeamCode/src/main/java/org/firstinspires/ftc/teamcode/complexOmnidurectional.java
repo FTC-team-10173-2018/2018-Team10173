@@ -118,10 +118,10 @@ public class complexOmnidurectional extends OpMode
         double backrightPower = 0;
         double angle= 0;
         double trueAngle = 0;
-        double power =
+        double power =(Math.pow ( Math.pow(gamepad1.left_stick_x,2) + Math.pow(gamepad1.left_stick_y,2)  ,2);
         double Gyro = 0;
 
-        if ((gamepad1.left_stick_x > 0) && (gamepad1.left_stick_y>0))
+        if ((gamepad1.left_stick_x > 0) && (gamepad1.left_stick_y>0)){
             angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
         else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y<0))
             angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
@@ -132,7 +132,57 @@ public class complexOmnidurectional extends OpMode
         else if ((gamepad1.left_stick_y < 0) && (gamepad1.left_stick_x == 0))
             angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
         else if ((gamepad1.left_stick_x == 0) && (-gamepad1.left_stick_y == 0))
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
+            angle = (-1);
+        else
+                angle = (java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x));}
+
+        trueAngle = (360-angle);
+        frontleftPower = (power * Math.sin(trueAngle + 45));
+        frontrightPower = (power* Math.sin(trueAngle + 45));
+        backleftPower = (power* Math.sin(trueAngle + 45));
+        backrightPower = (power* Math.sin(trueAngle + 45));
+
+        if (gamepad1.left_trigger > .75 || gamepad1.right_trigger > .75)
+            if (gamepad1.left_trigger > .75 ){
+                frontRightMotor.setPower(1);
+                frontleftMotor.setPower(1);
+                backLeftMotor.setPower(1);
+                backRightMotor.setPower(1);
+            else if (gamepad1.right_trigger > .75)
+                frontRightMotor.setPower(-1);
+                frontleftMotor.setPower(-1);
+                backLeftMotor.setPower(-1);
+                backRightMotor.setPower(-1)};
+
+
+
+        else if (((gamepad1.dpad_down||gamepad1.dpad_left||gamepad1.dpad_up||gamepad1.dpad_right)== true)){
+            if (gamepad1.dpad_up){
+                frontleftMotor.setPower(1);
+                frontRightMotor.setPower(-1;
+                backLeftMotor.setPower(-1);
+                backRightMotor.setPower(1);}
+
+            if (gamepad1.dpad_down){
+                frontleftPower=-1;
+                frontrightPower = 1;
+                backleftPower = 1;
+                backrightPower = -1;}
+
+            if (gamepad1.dpad_left){
+                frontleftPower=-1;
+                frontrightPower = -1;
+                backleftPower = 1;
+                backrightPower = 1;}
+
+            if (gamepad1.dpad_left){
+                frontleftPower=1;
+                frontrightPower = 1;
+                backleftPower = -1;
+                backrightPower = -1;}
+
+
+
 
 
 
