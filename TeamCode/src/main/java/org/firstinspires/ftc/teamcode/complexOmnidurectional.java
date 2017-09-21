@@ -147,8 +147,9 @@ public class complexOmnidurectional extends OpMode
                 frontRightMotor.setPower(1);
                 frontleftMotor.setPower(1);
                 backLeftMotor.setPower(1);
-                backRightMotor.setPower(1);
-            else if (gamepad1.right_trigger > .75)
+                backRightMotor.setPower(1);}
+
+            else if (gamepad1.right_trigger > .75){
                 frontRightMotor.setPower(-1);
                 frontleftMotor.setPower(-1);
                 backLeftMotor.setPower(-1);
@@ -163,23 +164,28 @@ public class complexOmnidurectional extends OpMode
                 backLeftMotor.setPower(-1);
                 backRightMotor.setPower(1);}
 
-            if (gamepad1.dpad_down){
-                frontleftPower=-1;
-                frontrightPower = 1;
-                backleftPower = 1;
-                backrightPower = -1;}
+            else if (gamepad1.dpad_down){
+                frontleftMotor.setPower(-1);
+                frontRightMotor.setPower(1);
+                backLeftMotor.setPower(1);
+                backRightMotor.setPower(-1);}
 
-            if (gamepad1.dpad_left){
-                frontleftPower=-1;
-                frontrightPower = -1;
-                backleftPower = 1;
-                backrightPower = 1;}
+            else if (gamepad1.dpad_left){
+                frontleftMotor.setPower(-1);
+                frontRightMotor.setPower(-1);
+                backLeftMotor.setPower(1);
+                backRightMotor.setPower(1);}
 
-            if (gamepad1.dpad_left){
-                frontleftPower=1;
-                frontrightPower = 1;
-                backleftPower = -1;
-                backrightPower = -1;}
+            else if (gamepad1.dpad_left){
+                frontleftMotor.setPower(1);
+                frontRightMotor.setPower(1);
+                backLeftMotor.setPower(-1);
+                backRightMotor.setPower(-1);}
+            else{
+                telemetry.addData("what I am confused");}
+
+
+            else
 
 
 
