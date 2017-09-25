@@ -56,10 +56,10 @@ public class BasicOmnidurectional extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontleftDrive = null;
+    private DcMotor frontLeftDrive = null;
     private DcMotor frontRightDrive = null;
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
+    //private DcMotor backLeftDrive = null;
+    //private DcMotor backRightDrive = null;
     private double power;
 
     /*
@@ -72,17 +72,17 @@ public class BasicOmnidurectional extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontleftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        //backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
+        //backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontleftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontleftDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        //frontRightDrive.setDirection(DcMotor.Direction.FORWARD);    NEED TO FIX
+        //frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);       NEED TO FIX
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -110,62 +110,62 @@ public class BasicOmnidurectional extends OpMode
         // Setup a variable for each drive wheel to save power level for telemetry
         double frontleftPower = 0;
         double frontrightPower = 0;
-        double backleftPower = 0;
-        double backrightPower = 0;
+        //double backleftPower = 0;
+        //double backrightPower = 0;
 
         if ((gamepad1.dpad_down||gamepad1.dpad_left||gamepad1.dpad_up||gamepad1.dpad_right)== true){
             if (gamepad1.dpad_up){
                 frontleftPower=1;
-                frontrightPower = -1;
-                backleftPower = -1;
-                backrightPower = 1;}
+                frontrightPower = -1;}
+                //backleftPower = -1;
+                //backrightPower = 1;}
 
             if (gamepad1.dpad_down){
                 frontleftPower=-1;
                 frontrightPower = 1;
-                backleftPower = 1;
-                backrightPower = -1;}
+                //backleftPower = 1;
+               //backrightPower = -1;}
 
             if (gamepad1.dpad_left){
                 frontleftPower=-1;
-                frontrightPower = -1;
-                backleftPower = 1;
-                backrightPower = 1;}
+                frontrightPower = -1;}
+                //backleftPower = 1;
+                //backrightPower = 1;}
 
             if (gamepad1.dpad_left){
                 frontleftPower=1;
-                frontrightPower = 1;
-                backleftPower = -1;
-                backrightPower = -1;}
+                frontrightPower = 1;}
+                //backleftPower = -1;
+                //backrightPower = -1;
 
             else
                 if (gamepad1.right_trigger >=.75)
                 {
                     frontleftPower=1;
-                    frontrightPower = 1;
-                    backleftPower = 1;
-                    backrightPower = 1;}
+                    frontrightPower = 1;}
+                    //backleftPower = 1;
+                    //backrightPower = 1;}
 
                 if (gamepad1.left_trigger >=.75){
                     frontleftPower=-1;
-                    frontrightPower = -1;
-                    backleftPower = -1;
-                    backrightPower = -1;}
+                    frontrightPower = -1;}
+                    //backleftPower = -1;
+                    //backrightPower = -1;
                 else
                     frontleftPower=0;
-            frontrightPower = 0;
-            backleftPower = 0;
-            backrightPower = 0;
+                frontrightPower = 0;
+                //backleftPower = 0;
+                //backrightPower = 0;
 
 
 
 
 
             // Send calculated power to wheels
-        frontleftDrive.setPower(frontleftPower);
+        frontLeftDrive.setPower(frontleftPower);
        frontRightDrive.setPower(frontrightPower);
-        backRightDrive.setPower(backrightPower);
-        backLeftDrive.setPower(backleftPower);
+        //backRightDrive.setPower(backrightPower);
+        //backLeftDrive.setPower(backleftPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -178,4 +178,4 @@ public class BasicOmnidurectional extends OpMode
      */
 
 
-}}
+}}}
