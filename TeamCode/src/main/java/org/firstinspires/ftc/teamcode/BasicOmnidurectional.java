@@ -29,12 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -52,30 +50,29 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic Omnidurecional", group="Iterative Opmode")
 
-public class BasicOmnidurectional extends OpMode
-{
+public class BasicOmnidurectional extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeftDrive = null;
-    private DcMotor frontRightDrive = null;
-    //private DcMotor backLeftDrive = null;
-    //private DcMotor backRightDrive = null;
-    private double power;
+    DcMotor frontLeftDrive = null;
+    DcMotor frontRightDrive = null;
+    DcMotor backLeftDrive = null;
+    DcMotor backRightDrive = null;
+    double power;
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
-    @Override
-    public void init() {
+    //@Override
+    public void runOpMode() {
         telemetry.addData("Status", "Initialized");
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
-        //backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
-        //backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "FL");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "FR");
+        backLeftDrive  = hardwareMap.get(DcMotor.class, "BL");
+        backRightDrive = hardwareMap.get(DcMotor.class, "BR");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -87,9 +84,14 @@ public class BasicOmnidurectional extends OpMode
         telemetry.addData("Status", "Initialized");
     }
 
+    @Override
+    public void init() {
+
+    }
+
     /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
+         * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+         */
     @Override
     public void init_loop() {
     }
@@ -110,8 +112,9 @@ public class BasicOmnidurectional extends OpMode
         // Setup a variable for each drive wheel to save power level for telemetry
         double frontleftPower = 0;
         double frontrightPower = 0;
-        //double backleftPower = 0;
-        //double backrightPower = 0;
+        double backleftPower = 0;
+        double backrightPower = 0;
+
 
         if ((gamepad1.dpad_down||gamepad1.dpad_left||gamepad1.dpad_up||gamepad1.dpad_right)== true){
             if (gamepad1.dpad_up){
@@ -123,59 +126,59 @@ public class BasicOmnidurectional extends OpMode
             if (gamepad1.dpad_down){
                 frontleftPower=-1;
                 frontrightPower = 1;
-                //backleftPower = 1;
-               //backrightPower = -1;}
+                backleftPower = 1;
+                backrightPower = -1;}
 
             if (gamepad1.dpad_left){
                 frontleftPower=-1;
-                frontrightPower = -1;}
-                //backleftPower = 1;
-                //backrightPower = 1;}
+                frontrightPower = -1;
+                backleftPower = 1;
+                backrightPower = 1;}
 
             if (gamepad1.dpad_left){
                 frontleftPower=1;
-                frontrightPower = 1;}
-                //backleftPower = -1;
-                //backrightPower = -1;
+                frontrightPower = 1;
+                backleftPower = -1;
+                backrightPower = -1;}
 
-            else
-                if (gamepad1.right_trigger >=.75)
+            else if (gamepad1.right_trigger >=.75)
                 {
                     frontleftPower=1;
-                    frontrightPower = 1;}
-                    //backleftPower = 1;
-                    //backrightPower = 1;}
+                    frontrightPower = 1;
+                    backleftPower = 1;
+                    backrightPower = 1;}
 
-                if (gamepad1.left_trigger >=.75){
-                    frontleftPower=-1;
-                    frontrightPower = -1;}
-                    //backleftPower = -1;
-                    //backrightPower = -1;
+                else if (gamepad1.left_trigger >=.75) {
+                //frontleftPower=-1;
+                //frontrightPower = -1;}
+                //backleftPower = -1;
+                //backrightPower = -1;
+            }
                 else
                     frontleftPower=0;
-                frontrightPower = 0;
-                //backleftPower = 0;
-                //backrightPower = 0;
+                    frontrightPower = 0;
+                    backleftPower = 0;
+                    backrightPower = 0;
 
 
 
 
 
             // Send calculated power to wheels
-        frontLeftDrive.setPower(frontleftPower);
-       frontRightDrive.setPower(frontrightPower);
-        //backRightDrive.setPower(backrightPower);
-        //backLeftDrive.setPower(backleftPower);
+        frontLeftDrive.setPower(1);
+        frontRightDrive.setPower(1);
+        backRightDrive.setPower(1);
+        backLeftDrive.setPower(1);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "x" + gamepad1.right_stick_x);
         telemetry.addData("Motors", "y" + gamepad1.right_stick_y);
-    }
+    }}
 
     /*
      * Code to run ONCE after the driver hits STOP
      */
 
 
-}}}
+}

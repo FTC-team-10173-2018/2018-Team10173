@@ -50,49 +50,99 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="arcade drive", group="Linear Opmode")  // @Autonomous(...) is the other common choice
-public class Arcade_drive extends LinearOpMode {
+@TeleOp(name="basic Omni 2      ", group="Linear Opmode")  // @Autonomous(...) is the other common choice
+public class basicOmni2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor frontLeftMotor = null;
     DcMotor frontRightMotor = null;
+    DcMotor backRightMotor = null;
+    DcMotor backleftMotor = null;
 
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        /* eg: Initialize the hardware variables. Note that the strings used here as parameters
-         * to 'get' must correspond to the names assigned during the robot configuration
-         * step (using the FTC Robot Controller app on the phone).
-         */
+
          frontLeftMotor  = hardwareMap.dcMotor.get("FL");
          frontRightMotor = hardwareMap.dcMotor.get("FR");
-
-
+         backleftMotor = hardwareMap.dcMotor.get("BL");
+         backRightMotor = hardwareMap.dcMotor.get("BR");
 
                  // eg: Set the drive motor directions:
         // "Reverse" the motor that runs backwards when connected directly to the battery
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        frontLeftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-
+        backRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        backleftMotor.setDirection(DcMotor.Direction.FORWARD);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
+            double frontleftPower = 0;
+            double frontrightPower = 0;
+            double backleftPower = 0;
+            double backrightPower = 0;
+
+
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
-            frontLeftMotor.setPower(gamepad1.left_stick_y - gamepad1.right_stick_x);
-            frontRightMotor.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x);
+
+
+            if (gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_up || gamepad1.dpad_right == true) {
+                if (gamepad1.dpad_up) {
+                    frontleftPower = 1;
+                    frontrightPower = -1;
+                    backleftPower = -1;
+                    backrightPower = 1;
+                } else if (gamepad1.dpad_down) {
+                    frontleftPower = -1;
+                    frontrightPower = 1;
+                    backleftPower = 1;
+                    backrightPower = -1;
+                } else if (gamepad1.dpad_left) {
+                    frontleftPower = -1;
+                    frontrightPower = -1;
+                    backleftPower = 1;
+                    backrightPower = 1;
+                } else {
+                    frontleftPower = 1;
+                    frontrightPower = 1;
+                    backleftPower = -1;
+                    backrightPower = -1;
+                }}
+            else if (gamepad1.right_trigger >= .75) {
+                    frontleftPower = 1;
+                    frontrightPower = 1;
+                    backleftPower = 1;
+                    backrightPower = 1;}
+                else if (gamepad1.left_trigger >= .75) {
+                    frontleftPower = -1;
+                    frontrightPower = -1;
+                    backleftPower = -1;
+                    backrightPower = -1;}
+                else{
+                    frontleftPower = 0;
+
+                    frontrightPower = 0;
+                    backleftPower = 0;
+                    backrightPower = 0;
+                }
 
 
 
+            frontLeftMotor.setPower(frontleftPower);
+            frontRightMotor.setPower(frontrightPower);
+            backRightMotor.setPower(backrightPower);
+            backleftMotor.setPower(backleftPower);
+        }}
 
-            // eg: Run wheels in tank mode (note: The joystick goes negative when pushed forwards)
-            // leftMotor.setPower(-gamepad1.left_stick_y);
-            // rightMotor.setPower(-gamepad1.right_stick_y);
+
         }
-    }
-}
+
+
+
