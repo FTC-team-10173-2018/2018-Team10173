@@ -35,6 +35,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -54,31 +55,43 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class basicOmni2 extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private ElapsedTime runtime = new ElapsedTime();
-    DcMotor frontLeftMotor = null;
-    DcMotor frontRightMotor = null;
-    DcMotor backRightMotor = null;
-    DcMotor backleftMotor = null;
+    private final ElapsedTime runtime = new ElapsedTime();
+    DcMotor frontLeftMotor;
+    DcMotor frontRightMotor;
+    DcMotor backRightMotor;
+    DcMotor backleftMotor;
+    DcMotor intake;
+    DcMotor Shooter1;
+    DcMotor Shooter2;
 
+    @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        this.telemetry.addData("Status", "Initialized");
+        this.telemetry.update();
 
 
-         frontLeftMotor  = hardwareMap.dcMotor.get("FL");
-         frontRightMotor = hardwareMap.dcMotor.get("FR");
-         backleftMotor = hardwareMap.dcMotor.get("BL");
-         backRightMotor = hardwareMap.dcMotor.get("BR");
+        this.frontLeftMotor = this.hardwareMap.dcMotor.get("FL");
+        this.frontRightMotor = this.hardwareMap.dcMotor.get("FR");
+        this.backleftMotor = this.hardwareMap.dcMotor.get("BL");
+        this.backRightMotor = this.hardwareMap.dcMotor.get("BR");
+        this.intake = this.hardwareMap.dcMotor.get("Intake");
+        this.Shooter1 = this.hardwareMap.dcMotor.get("Shooter1");
+        this.Shooter2 = this.hardwareMap.dcMotor.get("Shooter2");
 
                  // eg: Set the drive motor directions:
         // "Reverse" the motor that runs backwards when connected directly to the battery
-        frontLeftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        backRightMotor.setDirection(DcMotor.Direction.FORWARD);
-        backleftMotor.setDirection(DcMotor.Direction.FORWARD);
+        this.frontLeftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        this.frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        this.backRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        this.backleftMotor.setDirection(DcMotor.Direction.FORWARD);
+        this.intake.setDirection(DcMotor.Direction.FORWARD);
+        this.Shooter1.setDirection(DcMotor.Direction.FORWARD);
+        this.Shooter2.setDirection(DcMotor.Direction.FORWARD);
+
         // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-        runtime.reset();
+        this.waitForStart();
+        this.runtime.reset();
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -89,22 +102,22 @@ public class basicOmni2 extends LinearOpMode {
             double backrightPower = 0;
 
 
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
+            this.telemetry.addData("Status", "Run Time: " + this.runtime);
+            this.telemetry.update();
 
 
-            if (gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_up || gamepad1.dpad_right == true) {
-                if (gamepad1.dpad_up) {
+            if (this.gamepad1.dpad_down || this.gamepad1.dpad_left || this.gamepad1.dpad_up || this.gamepad1.dpad_right == true) {
+                if (this.gamepad1.dpad_up) {
                     frontleftPower = 1;
                     frontrightPower = -1;
                     backleftPower = -1;
                     backrightPower = 1;
-                } else if (gamepad1.dpad_down) {
+                } else if (this.gamepad1.dpad_down) {
                     frontleftPower = -1;
                     frontrightPower = 1;
                     backleftPower = 1;
                     backrightPower = -1;
-                } else if (gamepad1.dpad_left) {
+                } else if (this.gamepad1.dpad_right) {
                     frontleftPower = -1;
                     frontrightPower = -1;
                     backleftPower = 1;
@@ -115,12 +128,12 @@ public class basicOmni2 extends LinearOpMode {
                     backleftPower = -1;
                     backrightPower = -1;
                 }}
-            else if (gamepad1.right_trigger >= .75) {
+            else if (this.gamepad1.right_trigger >= .75) {
                     frontleftPower = 1;
                     frontrightPower = 1;
                     backleftPower = 1;
                     backrightPower = 1;}
-                else if (gamepad1.left_trigger >= .75) {
+                else if (this.gamepad1.left_trigger >= .75) {
                     frontleftPower = -1;
                     frontrightPower = -1;
                     backleftPower = -1;
@@ -135,10 +148,35 @@ public class basicOmni2 extends LinearOpMode {
 
 
 
-            frontLeftMotor.setPower(frontleftPower);
-            frontRightMotor.setPower(frontrightPower);
-            backRightMotor.setPower(backrightPower);
-            backleftMotor.setPower(backleftPower);
+
+            if (this.gamepad1.a){
+              this.intake.setPower(1);
+              }
+              else {
+                this.intake.setPower(0);
+            }
+
+
+            if (this.gamepad1.x)
+                {Shooter1.setPower(.5);}
+
+            else
+                {Shooter1.setPower(0);}
+
+
+            if (gamepad1.y){
+                Shooter2.setPower(.5);}
+
+
+            else{
+                Shooter2.setPower(0);}
+
+
+
+                this.frontLeftMotor.setPower(frontleftPower);
+            this.frontRightMotor.setPower(frontrightPower);
+            this.backRightMotor.setPower(backrightPower);
+            this.backleftMotor.setPower(backleftPower);
         }}
 
 
