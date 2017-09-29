@@ -70,10 +70,10 @@ public class complexOmnidurectional extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontleftMotor  = hardwareMap.get(DcMotor.class, "front_left_drive");
-        frontRightMotor = hardwareMap.get(DcMotor.class, "front_right_drive");
-        backLeftMotor = hardwareMap.get(DcMotor.class, "back_left_drive");
-        backRightMotor = hardwareMap.get(DcMotor.class, "back_right_drive");
+        frontleftMotor  = hardwareMap.get(DcMotor.class, "FL");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "FR");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "BL");
+        backRightMotor = hardwareMap.get(DcMotor.class, "BR");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -118,31 +118,31 @@ public class complexOmnidurectional extends OpMode
         double backrightPower = 0;
         double angle= 0;
         double trueAngle = 0;
-        double power =(Math.pow ( Math.pow(gamepad1.left_stick_x,2) + Math.pow(gamepad1.left_stick_y,2)  ,2);
+        double power =(Math.pow ( Math.pow(gamepad1.left_stick_x,2) + Math.pow(gamepad1.left_stick_y,2)  ,2));
         double Gyro = 0;
 
         if ((gamepad1.left_stick_x > 0) && (gamepad1.left_stick_y>0)){
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
-        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y<0))
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
-        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y>0))
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
-        else if ((angle == 0) && (gamepad1.left_stick_x<0))
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);
-        else if ((gamepad1.left_stick_y < 0) && (gamepad1.left_stick_x == 0))
-            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);
-        else if ((gamepad1.left_stick_x == 0) && (-gamepad1.left_stick_y == 0))
-            angle = (-1);
-        else
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);}
+        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y<0)){
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);}
+        else if ((gamepad1.left_stick_x < 0) && (-gamepad1.left_stick_y>0)){
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);}
+        else if ((angle == 0) && (gamepad1.left_stick_x<0)){
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+180);}
+        else if ((gamepad1.left_stick_y < 0) && (gamepad1.left_stick_x == 0)){
+            angle = ((java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x))+360);}
+        else if ((gamepad1.left_stick_x == 0) && (-gamepad1.left_stick_y == 0)){
+            angle = (-1);}
+        else{
                 angle = (java.lang.Math.atan(gamepad1.left_stick_y/ gamepad1.left_stick_x));}
 
-        trueAngle = (360-angle);
+        trueAngle = (360 - angle) ;
         frontleftPower = (power * Math.sin(trueAngle + 45));
         frontrightPower = (power* Math.sin(trueAngle + 45));
         backleftPower = (power* Math.sin(trueAngle + 45));
         backrightPower = (power* Math.sin(trueAngle + 45));
 
-        if (gamepad1.left_trigger > .75 || gamepad1.right_trigger > .75)
+        if (gamepad1.left_trigger > .75 || gamepad1.right_trigger > .75){
             if (gamepad1.left_trigger > .75 ){
                 frontRightMotor.setPower(1);
                 frontleftMotor.setPower(1);
@@ -153,14 +153,17 @@ public class complexOmnidurectional extends OpMode
                 frontRightMotor.setPower(-1);
                 frontleftMotor.setPower(-1);
                 backLeftMotor.setPower(-1);
-                backRightMotor.setPower(-1)};
+                backRightMotor.setPower(-1);}
+        else{
+              telemetry.addLine("WHAT I AM CONFUSED 1");
+            }}
 
 
 
         else if (((gamepad1.dpad_down||gamepad1.dpad_left||gamepad1.dpad_up||gamepad1.dpad_right)== true)){
             if (gamepad1.dpad_up){
                 frontleftMotor.setPower(1);
-                frontRightMotor.setPower(-1;
+                frontRightMotor.setPower(-1);
                 backLeftMotor.setPower(-1);
                 backRightMotor.setPower(1);}
 
@@ -176,16 +179,21 @@ public class complexOmnidurectional extends OpMode
                 backLeftMotor.setPower(1);
                 backRightMotor.setPower(1);}
 
-            else if (gamepad1.dpad_left){
+            else if (gamepad1.dpad_right){
                 frontleftMotor.setPower(1);
                 frontRightMotor.setPower(1);
                 backLeftMotor.setPower(-1);
                 backRightMotor.setPower(-1);}
             else{
-                telemetry.addData("what I am confused");}
+                telemetry.addLine("what I am confused");}}
 
 
-            else
+            else{
+                frontRightMotor.setPower(frontrightPower);
+                frontleftMotor.setPower(frontleftPower);
+                backRightMotor.setPower(backrightPower);
+                backLeftMotor.setPower(backleftPower);
+            }
 
 
 
@@ -206,4 +214,4 @@ public class complexOmnidurectional extends OpMode
      */
 
 
-}}
+}
